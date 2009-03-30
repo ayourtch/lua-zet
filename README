@@ -1,0 +1,5 @@
+lua-zet is a beginning of Lua bindings for Zettair.
+
+(c) 2009 Andrew Yourtchenko ayourtch@gmail.com
+
+The license is the same as for the Lua language itself. 
