@@ -31,6 +31,37 @@ static int fn_zet_index_new(lua_State *L)
   }
 }
 
+static int fn_zet_index_add(lua_State *L)
+{
+  struct index *idx = luaL_checkuserdata(L, 1);
+  const char *fname = luaL_checkstring(L, 2);
+  const char *mimetype = luaL_checkstring(L, 3);
+  unsigned long int docno = 0;
+  unsigned int docs = 0;
+  unsigned int opts = 0;
+  struct index_add_opt opt;
+  unsigned int commitopts = 0;
+  struct index_commit_opt commitopt;
+  int result;
+  
+  result = index_add(idx, fname, mimetype, &docno, &docs, opts, &opt, commitopts, &commitopt);
+
+  lua_pushinteger(L, result);
+  return 1;
+}
+
+static int fn_zet_index_commit(lua_State *L)
+{
+  struct index *idx = luaL_checkuserdata(L, 1);
+  unsigned int opts = 0;
+  struct index_add_opt opt;
+  unsigned int commitopts = 0;
+  struct index_commit_opt commitopt;
+  int result = index_commit(idx, commitopts, &commitopt, opts, &opt);
+  lua_pushinteger(L, result);
+  return 1;
+}
+
 static int fn_zet_index_load(lua_State *L)
 {
   const char *name = luaL_checkstring(L, 1);
@@ -120,6 +151,8 @@ static int fn_zet_index_search(lua_State *L)
 
 static const luaL_reg zetlib[] = {
   {"index_new", fn_zet_index_new },
+  {"index_add", fn_zet_index_add },
+  {"index_commit", fn_zet_index_commit },
   {"index_load", fn_zet_index_load },
   {"index_search", fn_zet_index_search },
   {NULL, NULL}
