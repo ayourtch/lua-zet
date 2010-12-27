@@ -1,7 +1,7 @@
 all: zet.so
 
 LUAINC=/usr/include/lua5.1
-ZETDIR=/home/ayourtch/Desktop/zettair-0.9.3
+ZETDIR=/home/ayourtch/zf
 
 CC=gcc
 CFLAGS=-I$(ZETDIR)/include -I$(LUAINC) -L$(ZETDIR)/.libs -lzet
